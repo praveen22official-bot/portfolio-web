@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praveen P — AI/ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08090c;
+    --bg-panel:#101118;
+    --bg-panel-2:#171922;
+    --text:#e9e5da;
+    --text-dim:#8b8d97;
+    --text-faint:#54565f;
+    --amber:#cf9a3a;
+    --amber-dim:#8a6a2c;
+    --blue:#5b7fa6;
+    --blue-dim:#3d5468;
+    --red:#8a3030;
+    --rule:#26272f;
+    --accent: var(--amber);
+    --accent-dim: var(--amber-dim);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Spectral', Georgia, serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--accent);color:#08090c;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .display{font-family:'Anton', sans-serif; font-weight:400; letter-spacing:0.01em;}
+  .label{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;}
+
+  /* ---------- grain overlay ---------- */
+  .grain{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:0.045; mix-blend-mode:overlay;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    background:linear-gradient(to bottom, rgba(8,9,12,0.92), rgba(8,9,12,0));
+    backdrop-filter:blur(2px);
+  }
+  .topbar .brand{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:14px;
+    letter-spacing:0.14em;
+  }
+  .topbar .clock{
+    font-size:12px; color:var(--text-dim); letter-spacing:0.08em;
+  }
+  .topbar nav{display:flex; gap:26px;}
+  .topbar nav a{
+    font-family:'Space Grotesk', sans-serif; font-size:11px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--text-dim); transition:color 0.25s;
+  }
+  .topbar nav a:hover{color:var(--accent);}
+  .topbar-mobile-hint{display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative; text-align:center; padding:120px 24px 60px;
+    overflow:hidden;
+  }
+  .hero-rings{
+    position:absolute; top:50%; left:50%;
+    width:1100px; height:1100px; transform:translate(-50%,-50%);
+    pointer-events:none; opacity:0.5;
+  }
+  .hero-rings svg{width:100%;height:100%;animation:spin 140s linear infinite;}
+  .hero-rings.r2 svg{animation-duration:200s; animation-direction:reverse;}
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+
+  .hero-kicker{
+    font-size:12px; color:var(--text-dim); margin-bottom:26px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .hero-kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent); animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .hero h1{
+    font-size:clamp(64px, 13vw, 168px);
+    line-height:0.92;
+    letter-spacing:0.01em;
+    position:relative;
+    z-index:2;
+  }
+  .hero h1 span{
+    display:inline-block;
+    opacity:0;
+    animation:reveal 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  @keyframes reveal{
+    from{opacity:0; transform:translateY(0.5em) rotateX(40deg);}
+    to{opacity:1; transform:translateY(0) rotateX(0);}
+  }
+
+  .hero-role{
+    margin-top:20px;
+    font-family:'Space Grotesk', sans-serif; font-weight:500;
+    font-size:clamp(14px,2.4vw,20px);
+    letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  .hero-summary{
+    max-width:640px; margin:34px auto 0;
+    color:var(--text-dim); font-size:16px; font-weight:300;
+  }
+
+  .hero-cta{
+    margin-top:42px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
+  }
+  .btn{
+    font-family:'Space Grotesk', sans-serif; font-size:12px; letter-spacing:0.14em;
+    text-transform:uppercase; padding:14px 28px; border:1px solid var(--rule);
+    transition:all 0.3s; cursor:pointer; background:transparent; color:var(--text);
+  }
+  .btn:hover{border-color:var(--accent); color:var(--accent);}
+  .btn.solid{background:var(--accent); color:#0a0a0c; border-color:var(--accent); font-weight:600;}
+  .btn.solid:hover{background:transparent; color:var(--accent);}
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    color:var(--text-faint); font-size:10px; letter-spacing:0.2em;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:var(--rule); position:relative; overflow:hidden;}
+  .scroll-cue .line::after{
+    content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background:var(--accent); animation:drip 2.2s ease-in-out infinite;
+  }
+  @keyframes drip{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+  /* ---------- stats strip ---------- */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  }
+  .stat{
+    padding:34px 20px; text-align:center; border-right:1px solid var(--rule);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px);
+    color:var(--accent);
+  }
+  .stat .cap{
+    margin-top:6px; font-size:11px; letter-spacing:0.1em; color:var(--text-dim);
+    text-transform:uppercase; font-family:'Space Grotesk', sans-serif;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:120px 24px; max-width:1180px; margin:0 auto; position:relative;}
+  .section-head{
+    display:flex; align-items:baseline; gap:18px; margin-bottom:56px;
+    border-bottom:1px solid var(--rule); padding-bottom:20px;
+  }
+  .section-head .tag{
+    font-size:11px; color:var(--accent); letter-spacing:0.2em;
+  }
+  .section-head h2{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(26px,4vw,40px);
+    letter-spacing:0.01em; text-transform:uppercase;
+  }
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- origin ---------- */
+  .origin-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:start;}
+  .origin-grid p{color:var(--text-dim); font-size:17px; margin-bottom:18px;}
+  .origin-grid p .hl{color:var(--text);}
+  .dossier{
+    background:var(--bg-panel); border:1px solid var(--rule); padding:28px;
+  }
+  .dossier .photo-wrap{
+    position:relative; width:100%; aspect-ratio:4/5; overflow:hidden; margin-bottom:22px;
+    border:1px solid var(--rule);
+  }
+  .dossier .photo-wrap img{
+    width:100%; height:100%; object-fit:cover; object-position:top center;
+    filter:grayscale(1) contrast(1.12) brightness(0.95);
+    transition:filter 0.5s;
+  }
+  .dossier .photo-wrap:hover img{filter:grayscale(0.2) contrast(1.08) brightness(1);}
+  .dossier .photo-wrap::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(207,154,58,0.16), rgba(8,9,12,0.5) 85%);
+    mix-blend-mode:multiply; pointer-events:none;
+  }
+  .dossier .photo-wrap::before{
+    content:'FILE / PP-01'; position:absolute; bottom:10px; left:10px; z-index:2;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.1em;
+    color:var(--text); opacity:0.85;
+  }
+  .dossier .row{
+    display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--rule);
+    font-size:13px;
+  }
+  .dossier .row:last-child{border-bottom:none;}
+  .dossier .row .k{font-family:'Space Grotesk',sans-serif; letter-spacing:0.08em; color:var(--text-faint); text-transform:uppercase; font-size:11px;}
+  .dossier .row .v{font-family:'JetBrains Mono', monospace; color:var(--text);}
+
+  /* ---------- timeline / experience ---------- */
+  .timeline-controls{
+    display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:16px;
+  }
+  .invert-toggle{
+    display:flex; align-items:center; gap:12px;
+    font-family:'Space Grotesk', sans-serif; font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--text-dim); cursor:pointer; user-select:none; background:none; border:1px solid var(--rule);
+    padding:10px 18px; transition:border-color 0.3s;
+  }
+  .invert-toggle:hover{border-color:var(--accent);}
+  .invert-toggle .icon{
+    width:14px; height:14px; transition:transform 0.6s cubic-bezier(.5,1.6,.4,1);
+  }
+  .invert-toggle.active .icon{transform:rotate(180deg);}
+  .invert-toggle .state{color:var(--accent); font-weight:600;}
+
+  .timeline{
+    position:relative; padding-left:34px; display:flex; flex-direction:column; gap:0;
+    transition:flex-direction 0.1s;
+  }
+  .timeline.inverted{flex-direction:column-reverse;}
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--rule);
+  }
+  .t-item{position:relative; padding:32px 0; border-bottom:1px solid var(--rule);}
+  .t-item:last-child{border-bottom:none;}
+  .t-item::before{
+    content:''; position:absolute; left:-34px; top:38px; width:9px; height:9px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent); transition:border-color 0.4s;
+  }
+  .t-item .t-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:6px;}
+  .t-item .role{font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:19px;}
+  .t-item .company{color:var(--accent); font-weight:600;}
+  .t-item .date{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);}
+  .t-item ul{margin-top:14px; padding-left:18px; color:var(--text-dim); font-size:15px;}
+  .t-item li{margin-bottom:8px;}
+  .t-item li::marker{color:var(--accent);}
+
+  /* ---------- projects ---------- */
+  .project-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:2px;
+    perspective:1200px;
+  }
+  .reel{
+    background:var(--bg-panel); border:1px solid var(--rule); padding:32px;
+    transition:transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    transform-style:preserve-3d; position:relative; overflow:hidden;
+  }
+  .reel::after{
+    content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(207,154,58,0.08), transparent 60%);
+    opacity:0; transition:opacity 0.35s;
+  }
+  .reel:hover{border-color:var(--accent-dim); background:var(--bg-panel-2);}
+  .reel:hover::after{opacity:1;}
+  .reel .frame-no{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint); letter-spacing:0.1em;
+  }
+  .reel h3{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:21px; margin:14px 0 12px;
+  }
+  .reel p{color:var(--text-dim); font-size:14.5px; margin-bottom:8px;}
+  .reel .stack{
+    margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .reel .stack span{
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--accent);
+    border:1px solid var(--accent-dim); padding:4px 9px; letter-spacing:0.04em;
+  }
+
+  /* ---------- arsenal / skills ---------- */
+  .skill-cats{display:flex; flex-direction:column; gap:26px;}
+  .skill-cat{
+    display:grid; grid-template-columns:220px 1fr; gap:24px; align-items:start;
+    padding:20px 0; border-bottom:1px solid var(--rule);
+  }
+  .skill-cat:last-child{border-bottom:none;}
+  .skill-cat h4{
+    font-family:'Space Grotesk', sans-serif; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  .skill-tags{display:flex; flex-wrap:wrap; gap:10px;}
+  .skill-tags span{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 13px;
+    border:1px solid var(--rule); color:var(--text); transition:border-color 0.25s, color 0.25s;
+  }
+  .skill-tags span:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- credentials marquee ---------- */
+  .marquee-wrap{overflow:hidden; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:26px 0;}
+  .marquee{display:flex; width:max-content; animation:scroll-left 34s linear infinite;}
+  .marquee-wrap:hover .marquee{animation-play-state:paused;}
+  .marquee .cred{
+    font-family:'Space Grotesk', sans-serif; font-size:14px; letter-spacing:0.04em;
+    color:var(--text-dim); padding:0 30px; white-space:nowrap; border-right:1px solid var(--rule);
+  }
+  .marquee .cred b{color:var(--text); font-weight:600;}
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- education + achievements ---------- */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .edu-card{border:1px solid var(--rule); padding:26px; background:var(--bg-panel);}
+  .edu-card .school{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px;}
+  .edu-card .deg{color:var(--text-dim); margin-top:6px; font-size:14.5px;}
+  .edu-card .meta{margin-top:14px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--accent);}
+  .achv{margin-top:16px; padding-left:0; list-style:none;}
+  .achv li{
+    display:flex; gap:12px; font-size:14px; color:var(--text-dim); margin-bottom:10px; align-items:baseline;
+  }
+  .achv li .prize{font-family:'JetBrains Mono', monospace; color:var(--accent); font-size:11px; min-width:64px;}
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    text-align:center; border-top:1px solid var(--rule);
+  }
+  .contact h2{
+    font-family:'Anton', sans-serif; font-size:clamp(40px,7vw,90px); text-transform:uppercase; letter-spacing:0.01em;
+  }
+  .contact p{color:var(--text-dim); max-width:520px; margin:20px auto 40px;}
+  .contact-links{display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:30px;}
+  .contact-links a{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Space Grotesk', sans-serif; font-size:13px; letter-spacing:0.06em;
+    border:1px solid var(--rule); padding:13px 20px; transition:all 0.3s;
+  }
+  .contact-links a:hover{border-color:var(--accent); color:var(--accent);}
+  .contact-links svg{width:15px;height:15px;}
+
+  footer{
+    text-align:center; padding:34px 24px 46px; color:var(--text-faint);
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.06em;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px){
+    .topbar nav{display:none;}
+    .origin-grid{grid-template-columns:1fr;}
+    .project-grid{grid-template-columns:1fr;}
+    .skill-cat{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:none;}
+    section{padding:90px 20px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    .hero h1 span{opacity:1; transform:none;}
+    .reveal{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<svg class="grain" width="0" height="0">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+<div class="grain" style="background:transparent;">
+  <svg width="100%" height="100%"><rect width="100%" height="100%" filter="url(#noiseFilter)"/></svg>
+</div>
+
+<div class="topbar">
+  <div class="brand">PRAVEEN&nbsp;P.</div>
+  <nav>
+    <a href="#origin">Origin</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#projects">Projects</a>
+    <a href="#arsenal">Arsenal</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="clock mono" id="clock">--:--:-- IST</div>
+</div>
+
+<!-- HERO -->
+<section class="hero" style="min-height:100svh; padding-top:0;">
+  <div class="hero-rings r1">
+    <svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="198" fill="none" stroke="#26272f" stroke-width="0.6"/><circle cx="200" cy="200" r="160" fill="none" stroke="#26272f" stroke-width="0.6"/></svg>
+  </div>
+  <div class="hero-rings r2">
+    <svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="120" fill="none" stroke="#26272f" stroke-width="0.6" stroke-dasharray="2 10"/></svg>
+  </div>
+
+  <div class="hero-kicker mono"><span class="dot"></span> CHENNAI, INDIA — B.TECH AI &amp; DATA SCIENCE, 2026</div>
+  <h1 class="display" id="heroTitle"></h1>
+  <div class="hero-role">AI / ML Engineer</div>
+  <p class="hero-summary">Building production ML systems across computer vision, NLP and applied cybersecurity — from a 5,000-image detection model running at the edge to a RAG pipeline that reads 500 pages in under thirty seconds.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn solid">View the work</a>
+    <a href="#contact" class="btn">Get in touch</a>
+  </div>
+
+  <div class="scroll-cue mono"><span>SCROLL</span><span class="line"></span></div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stat"><div class="num">30%↑</div><div class="cap">Safety accuracy, L&amp;T sites</div></div>
+  <div class="stat"><div class="num">92%</div><div class="cap">mAP, YOLOv8 detection</div></div>
+  <div class="stat"><div class="num">90%+</div><div class="cap">RAG answer accuracy</div></div>
+  <div class="stat"><div class="num">70%↓</div><div class="cap">Manual data-entry time</div></div>
+</div>
+
+<!-- ORIGIN -->
+<section id="origin">
+  <div class="section-head reveal"><span class="tag mono">01</span><h2>Origin</h2></div>
+  <div class="origin-grid">
+    <div class="reveal">
+      <p><span class="hl">AI &amp; Data Science student</span> with applied experience shipping production-grade systems across machine learning, NLP, computer vision, and AI-driven cybersecurity detection.</p>
+      <p>My work spans <span class="hl">OCR pipelines</span> that turn stacks of paper into structured data, <span class="hl">CLIP-powered vision systems</span> that recognise things they've never seen before, and detection models that watch live video feeds and flag what matters in real time.</p>
+      <p>Every project runs on the same principle: a model is only useful once it's <span class="hl">deployed, monitored, and fast</span> — so I build with Docker, FastAPI, and CI/CD from the first commit, not as an afterthought.</p>
+    </div>
+    <div class="dossier reveal">
+      <div class="photo-wrap">
+        <img src="data:image/jpeg;base64,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888888888888888888888888888888888888848o/V888888888888888888888888888884O391uE0888888888888888888888888888v1HI+dLU888888888888888888888888888ubpZ5XEN8888888888888888888888888888RDYTMwc8888888888888888888888888888+UN8rLf8888888888888888888888888888Rc/0udd8888888888888888888888888888+k91RK888888888888888888888888888888ovyod88888888888888888888888888888+wdQeP8AfPPPPPPPPPPPPPPPPPPPPPPPPPPMYXrHux/59OPPPPPPPPPPPPPPPPPPPPPPHM6e34R8j32qJFvPPPPPPPPPPPPPPPPPPPPXXw79ylWpvDNwufPPPPPPPPPPPPPPPPPPPCAeTSRDtaALJKXttvPPPPPPPPPPPPPPPPPPOdSZ8xxdqrWmpvkkPPPPPPPPPPPPPPPPPPLNM6bRjT8jSClru8O/PPPPPPPPPPPPPPPPPOLq9ynQecvhokuuyUvPPPPPPPPPPPPPPPPPKswZ0CTYT9nBfBfc1lPPPPPPPPPPPPPPPPPM56QkuSWVVmXbGNbZN/PPPPPPPPPPPPPPPPFFQL54awyRblPtYW0fvPPPPPPPPPPPPPPPPENthsxTXRYfPJAVJ93PPPPPPPPPPPPPPPPPHEL+X95QQZ7MJFR+q8tPPPPPPPPPPPPPPPPBDO8Gx0TcWM6vFOQX4nPPPPPPPPPPPPPPPPBX0hjw+TfZh+ntsSW4PPPPPPPPPPPPPPPPPAIw4HwXXQ3PnvIg/YffvPPPPPPPP//EACkRAAIBAwQCAgEEAwAAAAAAAAABAhARMQMhQEESIARxMBQiQlEyYXD/2gAIAQIBAT8A/wCNWuKCSHAs1z16tc2OSxq6yh9i+TK5+okQ+Qr2ZdNXQ+Ysjdotmo7yYy+4lK2D409nF5RLm6r/AGNkc7RuyStHdIi0pj/xVp2ISa1VvztaS8XHscpReRzm8s3E/wDZBvzTFhc3UjeSf97GpDcjp7XGr9bkoJI0ob85pMlpk9KSs0fxtbf7I6UnuyELc+6TR+1nhC+ByhEhNSvzkrmunGKYtVrsevL+yU5P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" alt="Praveen P">
+      </div>
+      <div class="row"><span class="k">Location</span><span class="v">Chennai, TN, IN</span></div>
+      <div class="row"><span class="k">Focus</span><span class="v">CV · NLP · MLOps</span></div>
+      <div class="row"><span class="k">Languages</span><span class="v">Python · SQL · C++</span></div>
+      <div class="row"><span class="k">Education</span><span class="v">B.Tech AI &amp; DS, 8.8 CGPA</span></div>
+      <div class="row"><span class="k">Status</span><span class="v">Open to opportunities</span></div>
+      <div class="row"><span class="k">Contact</span><span class="v">praveenpalani777@gmail.com</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-head reveal"><span class="tag mono">02</span><h2>Timeline</h2></div>
+  <div class="timeline-controls reveal">
+    <p style="color:var(--text-dim); font-size:14px; max-width:440px;">Three internships, one continuous build. Flip the order below — the story reads the same either direction.</p>
+    <button class="invert-toggle" id="invertBtn">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+      TIME: <span class="state" id="invertState">FORWARD</span>
+    </button>
+  </div>
+
+  <div class="timeline reveal" id="timeline-list">
+    <div class="t-item" data-order="1">
+      <div class="t-head">
+        <div><span class="role">Machine Learning Intern</span> — <span class="company">Larsen &amp; Toubro</span></div>
+        <div class="date mono">FEB 2026 – MAY 2026</div>
+      </div>
+      <ul>
+        <li>Developed computer vision models for worker activity detection across 10+ construction sites, improving safety-compliance monitoring accuracy by 30%.</li>
+        <li>Built OCR systems extracting structured data from 1,000+ construction PDFs and drawings, cutting manual data-entry time by 70%.</li>
+        <li>Automated Excel report generation, reducing weekly reporting effort from 5 hours to under 1 hour.</li>
+      </ul>
+    </div>
+    <div class="t-item" data-order="2">
+      <div class="t-head">
+        <div><span class="role">Machine Learning Engineer Intern</span> — <span class="company">MindFulAi Technologies</span></div>
+        <div class="date mono">JUL 2025 – AUG 2025</div>
+      </div>
+      <ul>
+        <li>Built CLIP-based zero-shot and few-shot image classification systems achieving 88%+ accuracy on unseen classes.</li>
+        <li>Applied prompt engineering and transfer learning across 15+ object categories for unseen class recognition.</li>
+        <li>Improved model inference performance by 25% using TensorFlow and PyTorch optimization techniques.</li>
+      </ul>
+    </div>
+    <div class="t-item" data-order="3">
+      <div class="t-head">
+        <div><span class="role">Data Analyst Intern</span> — <span class="company">Vulture Lines Technology</span></div>
+        <div class="date mono">FEB 2025 – MAR 2025</div>
+      </div>
+      <ul>
+        <li>Performed EDA on HR datasets covering 2,000+ employee records, surfacing key workforce insights for leadership.</li>
+        <li>Developed salary prediction and attrition analysis models achieving 85%+ prediction accuracy.</li>
+        <li>Built Power BI dashboards adopted by 3 business teams for ongoing HR reporting.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-head reveal"><span class="tag mono">03</span><h2>Projects</h2></div>
+  <div class="project-grid reveal">
+    <div class="reel" data-tilt>
+      <div class="frame-no mono">REEL / RAG-01</div>
+      <h3>LLM-Powered Document Q&amp;A</h3>
+      <p>Retrieval-augmented generation over 500+ page PDFs with 90%+ answer accuracy, cutting document search from 15 minutes to under 30 seconds.</p>
+      <p>Deployed as a Streamlit app on a FastAPI backend, containerized with Docker.</p>
+      <div class="stack"><span>LangChain</span><span>OpenAI API</span><span>FAISS</span><span>FastAPI</span><span>Docker</span></div>
+    </div>
+    <div class="reel" data-tilt>
+      <div class="frame-no mono">REEL / VIS-02</div>
+      <h3>Real-Time Object Detection</h3>
+      <p>YOLOv8 trained on a custom-labeled 5,000+ image dataset, reaching 92% mAP. Quantized for a 40% inference speed-up at the edge.</p>
+      <p>Wired into a live video feed via OpenCV for real-time alerting.</p>
+      <div class="stack"><span>YOLOv8</span><span>OpenCV</span><span>Quantization</span><span>Edge</span></div>
+    </div>
+    <div class="reel" data-tilt>
+      <div class="frame-no mono">REEL / OPS-03</div>
+      <h3>Customer Churn Pipeline</h3>
+      <p>End-to-end pipeline — cleaning, feature engineering, training, deployment — predicting churn at 87% accuracy with XGBoost.</p>
+      <p>Served as a REST API on AWS with scheduled Airflow retraining. Projected 15% reduction in churn.</p>
+      <div class="stack"><span>XGBoost</span><span>AWS</span><span>Airflow</span><span>REST API</span></div>
+    </div>
+    <div class="reel" data-tilt>
+      <div class="frame-no mono">REEL / NLP-04</div>
+      <h3>Sentiment &amp; Trend Dashboard</h3>
+      <p>Fine-tuned BERT for domain sentiment classification at a 94% F1-score across 100K+ social/review records processed with Spark.</p>
+      <p>Trends surfaced through an interactive Streamlit + Plotly dashboard.</p>
+      <div class="stack"><span>BERT</span><span>Spark</span><span>Streamlit</span><span>Plotly</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARSENAL -->
+<section id="arsenal">
+  <div class="section-head reveal"><span class="tag mono">04</span><h2>Arsenal</h2></div>
+  <div class="skill-cats reveal">
+    <div class="skill-cat">
+      <h4>Languages</h4>
+      <div class="skill-tags"><span>Python</span><span>SQL</span><span>C++</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>ML / DL Frameworks</h4>
+      <div class="skill-tags"><span>PyTorch</span><span>TensorFlow</span><span>Scikit-learn</span><span>Keras</span><span>Hugging Face Transformers</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>NLP / LLM Tools</h4>
+      <div class="skill-tags"><span>LangChain</span><span>OpenAI API</span><span>spaCy</span><span>NLTK</span><span>RAG Pipelines</span><span>Pinecone</span><span>FAISS</span><span>Chroma</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>Computer Vision</h4>
+      <div class="skill-tags"><span>OpenCV</span><span>YOLO</span><span>CNNs</span><span>Vision Transformers</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>MLOps / Deployment</h4>
+      <div class="skill-tags"><span>Docker</span><span>MLflow</span><span>FastAPI</span><span>Flask</span><span>AWS SageMaker</span><span>GCP Vertex AI</span><span>CI/CD</span><span>Git</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>Data</h4>
+      <div class="skill-tags"><span>Pandas</span><span>NumPy</span><span>Apache Spark</span><span>Data Pipelines</span></div>
+    </div>
+    <div class="skill-cat">
+      <h4>Other</h4>
+      <div class="skill-tags"><span>REST APIs</span><span>Streamlit</span><span>Kubernetes (basics)</span><span>Airflow</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS MARQUEE -->
+<div class="marquee-wrap reveal">
+  <div class="marquee mono" id="marquee"></div>
+</div>
+
+<!-- EDUCATION + ACHIEVEMENTS -->
+<section id="education">
+  <div class="section-head reveal"><span class="tag mono">05</span><h2>Record</h2></div>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="school">DMI College of Engineering, Chennai</div>
+      <div class="deg">B.Tech in Artificial Intelligence and Data Science</div>
+      <div class="meta">2022 – 2026 · CGPA 8.8</div>
+    </div>
+    <div class="edu-card">
+      <div class="school">Government Polytechnic College, Tiruvallur</div>
+      <div class="deg">Diploma in Mechanical Engineering</div>
+      <div class="meta">2020 – 2023 · 80%</div>
+    </div>
+  </div>
+
+  <div style="margin-top:50px;" class="reveal">
+    <h4 class="label" style="color:var(--text-dim); font-size:12px; margin-bottom:16px;">Achievements</h4>
+    <ul class="achv">
+      <li><span class="prize mono">1ST</span> Coding Competition — Kings Engineering College, Chennai</li>
+      <li><span class="prize mono">2ND</span> Technical Quiz — MGR Engineering College, Chennai</li>
+      <li><span class="prize mono">3RD</span> Technical Quiz — St. Joseph Institute of Technology, Chennai</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="reveal">
+    <span class="tag mono" style="color:var(--accent);">06 — CUT TO</span>
+    <h2>Let's build<br>something.</h2>
+    <p>Open to AI/ML engineering roles and collaborations in computer vision, NLP, and applied ML systems.</p>
+    <div class="contact-links">
+      <a href="mailto:praveenpalani777@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>praveenpalani777@gmail.com</a>
+      <a href="tel:+919080922939"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.1 3.4Z"/></svg>+91 90809 22939</a>
+      <a href="https://linkedin.com/in/praveen22625" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13c0-2 2-4 4.5-4S19 11 19 13v8"/></svg>LinkedIn</a>
+      <a href="https://github.com/praveen-334" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.7 2.8 5.6 3.1 5.6 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> PRAVEEN P — CHENNAI, INDIA · BUILT FRAME BY FRAME
+</footer>
+
+<script>
+  // Hero title letter reveal
+  const title = "PRAVEEN P";
+  const heroTitle = document.getElementById('heroTitle');
+  [...title].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = (i * 0.055) + 's';
+    heroTitle.appendChild(span);
+  });
+
+  // Live clock (IST-ish, uses local device time)
+  const clockEl = document.getElementById('clock');
+  function tick(){
+    const d = new Date();
+    const h = String(d.getHours()).padStart(2,'0');
+    const m = String(d.getMinutes()).padStart(2,'0');
+    const s = String(d.getSeconds()).padStart(2,'0');
+    clockEl.textContent = `${h}:${m}:${s}`;
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Timeline inversion (Tenet-style time flip)
+  const invertBtn = document.getElementById('invertBtn');
+  const timelineList = document.getElementById('timeline-list');
+  const invertState = document.getElementById('invertState');
+  let inverted = false;
+  invertBtn.addEventListener('click', () => {
+    inverted = !inverted;
+    timelineList.classList.toggle('inverted', inverted);
+    invertBtn.classList.toggle('active', inverted);
+    invertState.textContent = inverted ? 'INVERTED' : 'FORWARD';
+    document.documentElement.style.setProperty('--accent', inverted ? 'var(--blue)' : 'var(--amber)');
+    document.documentElement.style.setProperty('--accent-dim', inverted ? 'var(--blue-dim)' : 'var(--amber-dim)');
+  });
+
+  // Card tilt (hallway rotation effect)
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(4px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  // Credentials marquee (duplicated for seamless loop)
+  const creds = [
+    "MCP — Anthropic '26", "LangChain Python '26", "AWS ML Foundations '25", "Oracle OCI Foundations '25",
+    "Postman API Student Expert '25", "Microsoft Azure Fundamentals '24", "Agile PM Foundation '25",
+    "OpenAI API '25", "HackerRank Python '24", "DeepLearning.AI: Deep Learning Specialization",
+    "Generative AI with LLMs", "AWS Certified ML – Specialty", "Google Data Analytics", "TensorFlow Developer Certificate"
+  ];
+  const marquee = document.getElementById('marquee');
+  const buildSet = () => creds.map(c => `<span class="cred">CERT · <b>${c}</b></span>`).join('');
+  marquee.innerHTML = buildSet() + buildSet();
+
+  // Reduced motion: skip letter-by-letter delay stagger
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('#heroTitle span').forEach(s => s.style.animationDelay = '0s');
+  }
+</script>
+
+</body>
+</html>
